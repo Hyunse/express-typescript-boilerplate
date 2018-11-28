@@ -5,6 +5,6 @@
 /build
 
 # env
-# .env
+.env
 
 # config
