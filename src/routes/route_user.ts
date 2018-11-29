@@ -1,18 +1,9 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 import asyncHandler from '../middlewares/asyncHandler';
-import userController from '../controllers/User';
+import userController from '../controllers/controller_user';
 
 const router: Router = Router();
 
-router.get(
-  '/users',
-  asyncHandler(async (req: Request, res: Response, next: Function) => {
-    // Get Users
-    const users = await userController.findAllUsers(req, res, next);
-
-    // Response
-    res.send(users);
-  })
-);
+router.get('/users', asyncHandler(userController.findAllUsers));
 
 export default router;
