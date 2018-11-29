@@ -8,7 +8,7 @@ router.get(
   '/users',
   asyncHandler(async (req: Request, res: Response, next: Function) => {
     // Get Users
-    const users = await userController.get(req, res, next);
+    const users = await userController.findAllUsers(req, res, next);
 
     // Response
     res.send(users);

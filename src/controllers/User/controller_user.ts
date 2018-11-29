@@ -1,14 +1,13 @@
 import asyncHandler from '../../middlewares/asyncHandler';
-import db from '../../utils/util_db';
+import Models from '../../models';
 
 class UserController {
   constructor() {
-    this.get = this.get.bind(this);
+    this.findAllUsers = this.findAllUsers.bind(this);
   }
 
-  public get = asyncHandler(async (req: Request, res: Response) => {
-    const users = await db.connect();
-
+  public findAllUsers = asyncHandler(async (_: Request, __: Response) => {
+    const users = await Models.user.findAll();
     return users;
   });
 }
