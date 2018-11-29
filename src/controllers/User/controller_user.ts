@@ -1,15 +1,16 @@
 import asyncHandler from '../../middlewares/asyncHandler';
 import db from '../../utils/util_db';
 
-export const get = asyncHandler(async () => {
-  await db.connect();
-});
-
 class UserController {
   constructor() {
-
+    this.get = this.get.bind(this);
   }
-  public get(): void {}
+
+  public get = asyncHandler(async (req: Request, res: Response) => {
+    const users = await db.connect();
+
+    return users;
+  });
 }
 
 export default new UserController();

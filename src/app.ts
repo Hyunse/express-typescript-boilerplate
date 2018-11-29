@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import logger from 'morgan';
 import homeRoute from './routes/route_home';
+import userRoute from './routes/route_user';
 
 class App {
   public app;
@@ -23,6 +24,7 @@ class App {
   // Mount Routes
   private mountRoutes(): void {
     this.app.use(homeRoute);
+    this.app.use(userRoute);
   }
 }
 

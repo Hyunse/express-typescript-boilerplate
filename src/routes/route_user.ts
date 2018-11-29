@@ -6,11 +6,12 @@ const router: Router = Router();
 
 router.get(
   '/users',
-  asyncHandler(async (req: Request, res: Response) => {
-    
-    userController.get();
+  asyncHandler(async (req: Request, res: Response, next: Function) => {
+    // Get Users
+    const users = await userController.get(req, res, next);
 
-    res.send('');
+    // Response
+    res.send(users);
   })
 );
 

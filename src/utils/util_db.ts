@@ -2,16 +2,36 @@ import DBConfig from '../config/config_db';
 import pg from 'pg-promise';
 
 class DBUtils {
-  private static pgp;
+  private pgp;
+  private dbConfig = DBConfig.dev;
 
-  static async connect() {
+  constructor() {
+    this.connect = this.connect.bind(this);
+  }
+
+  public startTransaction() {
+    this.pgp = pg();
+  }
+
+  public endTransaction() {
+    this.pgp.end();
+  }
+
+  public connectDB() {
+    return this.pgp(this.dbConfig);
+  }
+
+  public async connect() {
+    let data;
     try {
       // Start Transaction
-      this.pgp = pg();
+      this.startTransaction();
 
       // Connect DB & Get Data
-      const db = this.pgp(DBConfig.dev);
-      const data = await db.any('select * from testsa');
+      if (this.pgp) {
+        const db = this.connectDB();
+        data = db.any('select * from Users');
+      }
 
       // Return
       return data;
@@ -19,9 +39,9 @@ class DBUtils {
       return error;
     } finally {
       // End Connection
-      this.pgp.end();
+      this.endTransaction();
     }
   }
 }
 
-export default DBUtils;
+export default new DBUtils();
