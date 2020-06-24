@@ -1,11 +1,13 @@
 import Sequelize from 'sequelize';
 import DBConfig from '../config/config_db';
 
-// Init 
+const env = DBConfig.env || 'development';
+
+// Init Sequelize
 const sequelize = new Sequelize(
-  DBConfig.dev.database || '',
-  DBConfig.dev.user || '',
-  DBConfig.dev.password || '',
+  DBConfig[env].database || '',
+  DBConfig[env].user || '',
+  DBConfig[env].password || '',
   {
     dialect: 'postgres',
     timezone: 'utc'
