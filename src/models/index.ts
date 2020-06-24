@@ -1,10 +1,10 @@
-import Sequelize from 'sequelize';
+import { Sequelize } from 'sequelize';
 import DBConfig from '../config/config_db';
 
 const env = DBConfig.env || 'development';
 
 // Init Sequelize
-const sequelize = new Sequelize(
+const sequelize : Sequelize = new Sequelize(
   DBConfig[env].database || '',
   DBConfig[env].user || '',
   DBConfig[env].password || '',
@@ -13,12 +13,11 @@ const sequelize = new Sequelize(
     timezone: 'utc'
   }
 );
-
 // Add Models
-const models = {
-  user: sequelize.import('./users'),
+const models : any = {
+  user: sequelize.import('./Users'),
   sequelize,
-  Sequelize
+  Sequelize,
 };
 
 // Association

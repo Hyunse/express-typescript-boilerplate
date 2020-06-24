@@ -8,9 +8,7 @@
   "devDependencies": {
     "@types/node": "^10.12.11",
     "nodemon": "^1.18.7",
-    "ts-node": "^7.0.1",
-    "tslint-config-prettier": "^1.17.0",
-    "typescript": "^3.2.1"
+    "tslint-config-prettier": "^1.17.0"
   },
   "scripts": {
     "start": "cd src && nodemon --exec ts-node index.ts"
@@ -24,7 +22,6 @@
     "@types/jsonwebtoken": "^7.2.8",
     "@types/morgan": "^1.7.35",
     "@types/pg": "^7.4.11",
-    "@types/sequelize": "^4.27.32",
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^6.1.0",
@@ -33,6 +30,8 @@
     "jsonwebtoken": "^8.4.0",
     "morgan": "^1.9.1",
     "pg-promise": "^8.5.1",
-    "sequelize": "^4.41.2"
+    "sequelize": "4.41.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
   }
 }
