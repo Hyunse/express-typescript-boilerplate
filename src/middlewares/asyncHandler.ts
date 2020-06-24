@@ -1,13 +1,24 @@
+import { Request, Response, NextFunction } from 'express';
+
+interface IParam {
+  req?: Request;
+  res?: Response;
+  next?: NextFunction;
+}
+
 /**
  * Async Await Handler
- * @param fn : function
+ *
+ * @param {Function} fn
+ * @desc Try catch Error aysnc function
  */
-interface IParam {
-  req?: Request,
-  res?: Response,
-  next?: Function
-}
-const asyncHandler = (fn) => (req, res, next): Promise<IParam> =>
-  Promise.resolve(fn(req, res, next)).catch(next);
+const asyncHandler = (fn) => (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<IParam> =>
+  Promise.resolve(fn(req, res, next)).catch((error) => {
+    next(error);
+  });
 
 export default asyncHandler;
