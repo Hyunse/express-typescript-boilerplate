@@ -33,6 +33,6 @@
     "jsonwebtoken": "^8.4.0",
     "morgan": "^1.9.1",
     "pg-promise": "^8.5.1",
-    "sequelize": "^4.41.2"
+    "sequelize": "^5.15.1"
   }
 }
