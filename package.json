@@ -13,7 +13,7 @@
     "typescript": "^3.2.1"
   },
   "scripts": {
-    "dev": "cd src && nodemon --exec ts-node index.ts"
+    "start": "cd src && nodemon --exec ts-node index.ts"
   },
   "dependencies": {
     "@types/cors": "^2.8.4",
