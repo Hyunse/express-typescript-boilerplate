@@ -1,14 +1,13 @@
-import { Request, Response } from 'express';
 import asyncHandler from '../middlewares/asyncHandler';
-import Models from '../models';
+import Users from '../models/users'
 
 class UserController {
   constructor() {
     this.findAllUsers = this.findAllUsers.bind(this);
   }
 
-  public findAllUsers = asyncHandler(async (_: Request, res: Response) => {
-    const users = await Models.user.findAll();
+  public findAllUsers = asyncHandler(async (_, res) => {
+    const users = Users.find({});
     res.send(users);
   });
 }

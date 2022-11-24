@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction } from 'express';
 
 export interface Error {
   status?: number;
@@ -16,8 +16,8 @@ export interface Error {
  */
 export function errorHandler(
   err: Error,
-  req: Request,
-  res: Response,
+  req,
+  res,
   next: NextFunction
 ) {
   res.status(err.status || 500);

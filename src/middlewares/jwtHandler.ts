@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction } from 'express';
 import JWTUtil from '../utils/util_jwt';
 
 /**
@@ -9,8 +9,8 @@ import JWTUtil from '../utils/util_jwt';
  * @param {NextFunction} next
  */
 const jwtHandler = async (
-  req: Request,
-  res: Response,
+  req,
+  _,
   next: NextFunction
 ): Promise<void> => {
   const token = req.get('X-JWT');

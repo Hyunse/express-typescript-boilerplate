@@ -1,8 +1,8 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 
-const router: Router = Router();
+const router = Router();
 
-router.get('/', (req: Request, res: Response) => {
+router.get('/', (req, res) => {
   res.send({ success: true }).status(200);
 });
 

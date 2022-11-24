@@ -1,6 +1,7 @@
+import mongoose, { Schema, Document, ObjectId } from 'mongoose';
 
-export interface User {
-  id: number;
+export interface IUser extends Document {
+  id: ObjectId;
   name: string;
   password: string;
   country: string;
@@ -9,38 +10,13 @@ export interface User {
   updatedAt: Date;
 }
 
-export default (sequelize, DataTypes) => {
-  const Users = sequelize.define(
-    'users',
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-      },
-      name: DataTypes.STRING,
-      password: DataTypes.STRING,
-      country: DataTypes.STRING,
-      email: DataTypes.STRING,
-      createdAt: {
-        type: 'TIMESTAMP',
-        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-        allowNull: false,
-        field: 'created_at'
-      },
-      updatedAt: {
-        type: 'TIMESTAMP',
-        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-        allowNull: false,
-        field: 'updated_at'
-      }
-    },
-    {
-      timestamp: true
-    }
-  );
+const UserSchema: Schema = new Schema({
+  name: { type: String, required: true },
+  password: { type: String, required: true },
+  country: { type: String, required: true },
+  email: { type: String, required: true },
+  createdAt: { type: Date, required: false },
+  updatedAt: { type: Date, required: false }
+});
 
-  Users.associate = function(models) {};
-
-  return Users;
-};
+export default mongoose.model<IUser>('Users', UserSchema);

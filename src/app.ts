@@ -8,6 +8,7 @@ import userRoute from './routes/route_user';
 import { logHandler } from './middlewares/logHandler';
 import { errorHandler } from './middlewares/ErrorHandler';
 import jwtHandler from './middlewares/jwtHandler';
+import db from './models'
 
 class App {
   public app;
@@ -17,6 +18,7 @@ class App {
     this.middlewares();
     this.mountRoutes();
     this.logging();
+    this.connectDB();
   }
 
   // Middlewares
@@ -38,6 +40,10 @@ class App {
   private mountRoutes(): void {
     this.app.use(homeRoute);
     this.app.use(userRoute);
+  }
+
+  private connectDB(): void {
+    db.init();
   }
 }
 

@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
-import Models from '../models';
-import { User } from '../models/Users';
+import Users, { IUser } from '../models/users';
 
 class JwtUtil {
   /**
@@ -26,19 +25,16 @@ class JwtUtil {
    * @param {string} token
    * @return {User} user
    */
-  public decodeJWT = async (token: string): Promise<User | undefined> => {
+  public decodeJWT = async (token: string): Promise<IUser | null> => {
     try {
       const decoded: any = jwt.verify(token, `${process.env.JWT_TOKEN}`);
       const { id } = decoded;
-      const user: User = await Models.user
-        .findOne({ where: { id: id } })
-        .then((res: User) => {
-          return res;
-        });
+      const user: IUser | null = await Users
+        .findOne({ where: { id: id } });
 
       return user;
     } catch (error) {
-      return undefined;
+      return null;
     }
   };
 }
