@@ -1,6 +1,6 @@
-import { NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
-export interface Error {
+export interface IError {
   status?: number;
   message?: string;
   stack?: string;
@@ -9,15 +9,15 @@ export interface Error {
 /**
  * Error Handler
  *
- * @param {Error} err
+ * @param {IError} err
  * @param {Request} req
  * @param {Response} res
  * @param {NextFunction} next
  */
 export function errorHandler(
-  err: Error,
-  req,
-  res,
+  err: IError,
+  req: Request,
+  res: Response,
   next: NextFunction
 ) {
   res.status(err.status || 500);

@@ -6,8 +6,6 @@ export interface IUser extends Document {
   password: string;
   country: string;
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 const UserSchema: Schema = new Schema({
@@ -15,8 +13,11 @@ const UserSchema: Schema = new Schema({
   password: { type: String, required: true },
   country: { type: String, required: true },
   email: { type: String, required: true },
-  createdAt: { type: Date, required: false },
-  updatedAt: { type: Date, required: false }
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
 });
 
 export default mongoose.model<IUser>('Users', UserSchema);

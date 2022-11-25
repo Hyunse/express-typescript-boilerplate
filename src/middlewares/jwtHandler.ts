@@ -1,4 +1,4 @@
-import { NextFunction } from 'express';
+import { NextFunction, Request } from 'express';
 import JWTUtil from '../utils/util_jwt';
 
 /**
@@ -9,7 +9,7 @@ import JWTUtil from '../utils/util_jwt';
  * @param {NextFunction} next
  */
 const jwtHandler = async (
-  req,
+  req: Request,
   _,
   next: NextFunction
 ): Promise<void> => {

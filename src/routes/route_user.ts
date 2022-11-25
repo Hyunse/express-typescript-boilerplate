@@ -6,4 +6,6 @@ const router = Router();
 
 router.get('/users', asyncHandler(userController.findAllUsers));
 
+router.post('/addUser', asyncHandler(userController.addUser));
+
 export default router;
