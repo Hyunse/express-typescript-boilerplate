@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import asyncHandler from '../middlewares/asyncHandler';
 import Users, { IUser } from '../models/users';
+import JWTUtil from '../utils/util_jwt'
 
 class UserController {
   constructor() {
@@ -34,6 +35,27 @@ class UserController {
   public findAllUsers = asyncHandler(async (_, res: Response) => {
     const users = await Users.find({});
     res.send(users);
+  });
+
+  public login = asyncHandler(async (req: Request, res: Response) => {
+    const { email, password } = req.body;
+
+    const user = await Users.findOne({ email, password });
+
+    if(!user) {
+      throw {
+        status: 403,
+        message: 'Wrong email or password' 
+      };
+    }
+    
+    const token: string = await JWTUtil.createJWT(user.id);
+
+    res.send({
+      ok: true,
+      user,
+      token
+    });
   });
 }
 

@@ -1,14 +1,15 @@
 import jwt from 'jsonwebtoken';
+import { ObjectId } from 'mongoose';
 import Users, { IUser } from '../models/users';
 
 class JwtUtil {
   /**
    * Create Json Web Token
    * 
-   * @param {number} id
+   * @param {ObjectId} id
    * @return {Object} token
    */
-  public createJWT = (id: number): string => {
+  public createJWT = (id: ObjectId): string => {
     const token = jwt.sign(
       {
         id

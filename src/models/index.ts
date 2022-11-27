@@ -5,7 +5,10 @@ const env = DBConfig.env || 'development';
 
 class Database {
   public static init(): any {
-    const url = env === 'development' ? 'mongodb://localhost:27017' : '';
+    const url =
+      env === 'development'
+        ? `mongodb://${DBConfig.development.host}:${DBConfig.development.port}`
+        : `mongodb://${DBConfig.production.host}:${DBConfig.production.port}`;
 
     mongoose.connect(url, (err: mongoose.MongooseError) => {
       if (err) {

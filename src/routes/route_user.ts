@@ -8,4 +8,6 @@ router.get('/users', asyncHandler(userController.findAllUsers));
 
 router.post('/addUser', asyncHandler(userController.addUser));
 
+router.post('/login', asyncHandler(userController.login));
+
 export default router;
