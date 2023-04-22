@@ -14,15 +14,17 @@ export interface IError {
  * @param {Response} res
  * @param {NextFunction} next
  */
-export function errorHandler(
+const errorHandler = (
   err: IError,
   req: Request,
   res: Response,
   next: NextFunction
-) {
+) => {
   res.status(err.status || 500);
   res.send({
     ok: false,
     error: err.message || 'Server Error!',
   });
-}
+};
+
+export { errorHandler }

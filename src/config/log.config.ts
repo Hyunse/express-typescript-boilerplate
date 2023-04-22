@@ -1,0 +1,1 @@
+export const { LOG_DIR, LOG_FORMAT } = process.env;

@@ -2,10 +2,11 @@
 /node_modules
 
 # production
-/build
+/dist
 
 # env
 .env
 .env.development
 
-# config
+# logs
+logs

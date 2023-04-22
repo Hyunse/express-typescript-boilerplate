@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import asyncHandler from '../middlewares/asyncHandler';
-import Users, { IUser } from '../models/users';
-import JWTUtil from '../utils/util_jwt'
+import { asyncHandler } from '@middlewares/async.middleware';
+import Users, { IUser } from '@models/user.model';
+import { createJWT } from '@utils/jwt.util';
 
 class UserController {
   constructor() {
@@ -11,14 +11,15 @@ class UserController {
 
   public addUser = asyncHandler(async (req: Request, res: Response) => {
     const { email, name, password, country }: IUser = req.body;
-    
+
     const existUser = await Users.findOne({ email });
 
     // Duplicated User
-    if(existUser) throw {
-      status: 409,
-      message: 'User already exists'
-    }
+    if (existUser)
+      throw {
+        status: 409,
+        message: 'User already exists',
+      };
 
     const newUser = new Users({
       email,
@@ -26,7 +27,7 @@ class UserController {
       password,
       country,
     });
-    
+
     await newUser.save();
 
     res.send(newUser);
@@ -42,19 +43,19 @@ class UserController {
 
     const user = await Users.findOne({ email, password });
 
-    if(!user) {
+    if (!user) {
       throw {
         status: 403,
-        message: 'Wrong email or password' 
+        message: 'Wrong email or password',
       };
     }
-    
-    const token: string = await JWTUtil.createJWT(user.id);
+
+    const token: string = await createJWT(user.id);
 
     res.send({
       ok: true,
       user,
-      token
+      token,
     });
   });
 }

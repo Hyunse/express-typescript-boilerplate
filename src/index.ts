@@ -1,14 +1,14 @@
-// .env file
-import dotenv from 'dotenv';
-dotenv.config();
+import app from '@/app';
+import { logger } from '@/utils/logger.util';
+import { NODE_ENV, PORT } from '@config'
 
-import app from './app';
+const server = app.listen(PORT, () => {
+  logger.info(`=================================`);
+  logger.info(`======= ENV: ${NODE_ENV} =======`);
+  logger.info(`👋 App listening on the port ${PORT}`);
+  logger.info(`=================================`);
+});
 
-const port = process.env.PORT || 3000;
-
-app.listen(port, (err) => {
-  if (err) {
-    console.log(err);
-  }
-  console.log(`server is listening on ${port}`);
+server.on('error', (error) => {
+  console.error('Server Error', error);
 });

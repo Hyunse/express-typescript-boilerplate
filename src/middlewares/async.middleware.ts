@@ -21,4 +21,4 @@ const asyncHandler = (fn) => (
     next(error);
   });
 
-export default asyncHandler;
+export { asyncHandler };

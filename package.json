@@ -1,6 +1,6 @@
 {
   "name": "express-ts-boilerplate",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Expres Typescript Server",
   "main": "index.js",
   "author": "Kim Hyunse <anzmf12@naver.com>",
@@ -15,21 +15,25 @@
     "@types/morgan": "^1.9.3",
     "@types/node": "^10.12.11",
     "nodemon": "^1.18.7",
-    "tslint-config-prettier": "^1.17.0"
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "tslint-config-prettier": "^1.17.0",
+    "typescript": "^5.0.4"
   },
   "scripts": {
-    "start": "cd src && nodemon --exec ts-node index.ts"
+    "start": "cd src && nodemon --exec ts-node -r tsconfig-paths/register index.ts"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^6.1.0",
+    "envalid": "^7.3.1",
     "express": "4.16.3",
     "helmet": "^3.15.0",
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^6.7.3",
     "morgan": "^1.9.1",
-    "ts-node": "^8.10.2",
-    "typescript": "4.1.6"
+    "winston": "^3.8.2",
+    "winston-daily-rotate-file": "^4.7.1"
   }
 }

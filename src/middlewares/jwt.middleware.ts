@@ -1,5 +1,5 @@
 import { NextFunction, Request } from 'express';
-import JWTUtil from '../utils/util_jwt';
+import { decodeJWT } from '../utils/jwt.util';
 
 /**
  * Json Web Token Handler
@@ -16,7 +16,7 @@ const jwtHandler = async (
   const token = req.get('X-JWT');
 
   if (token) {
-    const user = await JWTUtil.decodeJWT(token);
+    const user = await decodeJWT(token);
 
     if (user) {
       req.body.user = user;
@@ -28,4 +28,4 @@ const jwtHandler = async (
   next();
 };
 
-export default jwtHandler;
+export { jwtHandler };
