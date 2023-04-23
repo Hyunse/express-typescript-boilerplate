@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { NODE_ENV, LOG_FORMAT } from '@config';
 import bodyParser from 'body-parser';
 import express from 'express';
@@ -6,8 +7,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import homeRoute from '@routes/home.route';
 import userRoute from '@routes/user.route';
-// import { logHandler } from '@middlewares/log.middleware';
-import { errorHandler } from '@middlewares/error.middleware';
+import authRoute from '@routes/auth.route'
 import { jwtHandler } from '@middlewares/jwt.middleware';
 import { initializeDatabase } from '@database';
 import { stream } from '@/utils/logger.util';
@@ -19,9 +19,9 @@ class App {
   constructor() {
     this.app = express();
     this.env = NODE_ENV || 'development';
+    this.logging();
     this.middlewares();
     this.mountRoutes();
-    this.logging();
     this.connectDB();
   }
 
@@ -36,14 +36,13 @@ class App {
 
   private logging = (): void => {
     this.app.use(morgan(LOG_FORMAT || 'dev', { stream }));
-    // this.app.use(logHandler);
-    this.app.use(errorHandler);
   };
 
   // Mount Routes
   private mountRoutes(): void {
-    this.app.use(homeRoute);
-    this.app.use(userRoute);
+    this.app.use('/', homeRoute);
+    this.app.use('/users', userRoute);
+    this.app.use('/auth', authRoute);
   }
 
   private connectDB(): void {

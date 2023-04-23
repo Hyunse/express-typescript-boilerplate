@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { ObjectId } from 'mongoose';
-import Users, { IUser } from '@models/user.model';
-
+import UserModel from '@models/user.model';
+import { User } from '@interface/user.interface'
 /**
  * Create Json Web Token
  *
@@ -25,11 +25,11 @@ const createJWT = (id: ObjectId): string => {
  * @param {string} token
  * @return {User} user
  */
-const decodeJWT = async (token: string): Promise<IUser | null> => {
+const decodeJWT = async (token: string): Promise<User> => {
   try {
     const decoded: any = jwt.verify(token, `${process.env.JWT_TOKEN}`);
     const { id } = decoded;
-    const user: IUser | null = await Users.findOne({ where: { id: id } });
+    const user: User = await UserModel.findOne({ where: { id: id } });
 
     return user;
   } catch (error) {

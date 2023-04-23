@@ -3,12 +3,9 @@ import { logger } from '@/utils/logger.util';
 import { NODE_ENV, PORT } from '@config'
 
 const server = app.listen(PORT, () => {
-  logger.info(`=================================`);
-  logger.info(`======= ENV: ${NODE_ENV} =======`);
-  logger.info(`👋 App listening on the port ${PORT}`);
-  logger.info(`=================================`);
+  logger.info(`Server listening on port ${PORT} in ${NODE_ENV} mode`);
 });
 
 server.on('error', (error) => {
-  console.error('Server Error', error);
+  logger.error('Server Error', error);
 });
