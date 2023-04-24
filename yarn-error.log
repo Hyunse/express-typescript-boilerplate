@@ -35,7 +35,7 @@ npm manifest:
       "tslint-config-prettier": "^1.17.0",
     },
     "scripts": {
-      "start": "cd src && nodemon --exec ts-node index.ts"
+      "start": "cd src && nodemon --exec ts-node server.ts"
     },
     "dependencies": {
       "@types/bcrypt": "^3.0.0",

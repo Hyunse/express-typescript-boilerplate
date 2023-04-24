@@ -21,7 +21,8 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
-    "start": "cd src && nodemon --exec ts-node -r tsconfig-paths/register index.ts"
+    "start": "cd src && nodemon --exec ts-node -r tsconfig-paths/register server.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",

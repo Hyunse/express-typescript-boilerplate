@@ -2,13 +2,22 @@
     "version": "0.2.0",
     "configurations": [
       {
-        "name": "Debug ts-node",
+        "name": "Launch server.ts",
         "type": "node",
         "request": "launch",
-        "program": "${workspaceRoot}/node_modules/ts-node/dist/bin.js",
-        "args": [ "${workspaceRoot}/src/index.ts" ],
-        "cwd": "${workspaceRoot}",
-        "protocol": "inspector"
-      }
+        "runtimeArgs": [
+            "-r",
+            "ts-node/register",
+            "-r", 
+            "tsconfig-paths/register"
+        ],
+        "args": [
+            "${workspaceFolder}/src/server.ts"
+        ],
+        "outputCapture": "std",
+        "envFile": "${workspaceFolder}/.env.development"
+       }
     ]
+
+
   }
