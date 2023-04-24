@@ -1,7 +1,7 @@
 import 'reflect-metadata';
-import { NODE_ENV, LOG_FORMAT } from '@config';
+import { LOG_FORMAT } from '@config';
 import bodyParser from 'body-parser';
-import express from 'express';
+import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -10,19 +10,17 @@ import userRoute from '@routes/user.route';
 import authRoute from '@routes/auth.route'
 import { jwtHandler } from '@middlewares/jwt.middleware';
 import { initializeDatabase } from '@database';
-import { stream } from '@/utils/logger.util';
+import { logger, stream } from '@/utils/logger.util';
 
 class App {
-  public app: express.Application;
-  public env: string;
+  public app: Application;
 
   constructor() {
     this.app = express();
-    this.env = NODE_ENV || 'development';
-    this.logging();
     this.middlewares();
-    this.mountRoutes();
-    this.connectDB();
+    this.routes();
+    this.database();
+    this.errorHandler();
   }
 
   // Middlewares
@@ -32,21 +30,31 @@ class App {
     this.app.use(cors());
     this.app.use(helmet());
     this.app.use(jwtHandler);
-  };
-
-  private logging = (): void => {
     this.app.use(morgan(LOG_FORMAT || 'dev', { stream }));
   };
 
-  // Mount Routes
-  private mountRoutes(): void {
+  private routes(): void {
     this.app.use('/', homeRoute);
     this.app.use('/users', userRoute);
     this.app.use('/auth', authRoute);
   }
 
-  private connectDB(): void {
-    initializeDatabase();
+  private database(): void {
+    try {
+      initializeDatabase();
+    } catch (error) {
+      logger.error(error.message);
+      process.exit(1);
+    }
+  }
+
+  private errorHandler(): void {
+    this.app.use((err: any, _: Request, res: Response, next: NextFunction) => {
+      logger.error(err.message);
+      res.status(err.status || 500).json({
+        error: err.message || 'Server Error',
+      });
+    });
   }
 }
 
