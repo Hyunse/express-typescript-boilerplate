@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import { LOG_FORMAT } from '@config';
-import bodyParser from 'body-parser';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import compression from 'compression'
 import homeRoute from '@routes/home.route';
 import userRoute from '@routes/user.route';
 import authRoute from '@routes/auth.route'
@@ -25,10 +25,11 @@ class App {
 
   // Middlewares
   private middlewares = (): void => {
-    this.app.use(bodyParser.json());
-    this.app.use(bodyParser.urlencoded({ extended: true }));
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cors());
     this.app.use(helmet());
+    this.app.use(compression());
     this.app.use(jwtHandler);
     this.app.use(morgan(LOG_FORMAT || 'dev', { stream }));
   };
