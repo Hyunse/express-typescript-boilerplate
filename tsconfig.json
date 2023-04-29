@@ -28,7 +28,7 @@
       "@routes/*": ["routes/*"],
       "@services/*": ["services/*"],
       "@utils/*": ["utils/*"],
-      "@interface/*": ["interfaces/*"],
+      "@interface/*": ["interfaces/*"]
     }
   },
   "include": ["src", "typings"],

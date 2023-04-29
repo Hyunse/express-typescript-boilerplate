@@ -9,3 +9,8 @@ const server = app.listen(PORT, () => {
 server.on('error', (error) => {
   logger.error('Server Error', error);
 });
+
+server.on('close', async () => {
+  logger.info('Server closed');
+});
+
